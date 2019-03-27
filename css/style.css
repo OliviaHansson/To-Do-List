@@ -1,0 +1,82 @@
+@font-face {
+    font-family: nikeFont;
+    src: url(../Futura.ttf);
+}
+body {
+    background-image: url("../bild1.jpg");
+    font-family: nikeFont, Bolder;
+}
+.main-content {
+    border: 1px solid black;
+    width: 60%;
+    margin: 60px auto;
+}
+a {
+    background-color: none;
+    padding: 5px;
+    font-style: oblique;
+    border: 1px solid black;
+    margin-top: 30px;
+    margin-left: 40px;
+}
+ul {
+    margin-top: 50px;
+}
+ul li {
+    margin: 10px;
+    list-style-type: none;
+    font-size: 1.5em;
+}
+.done {
+    text-decoration: line-through;
+    color: rgba(0, 0, 0,0.3);
+    font-style: oblique;
+}
+i {
+    color: black;
+}
+i:hover {
+    color: red;
+}
+.add-new {
+    margin-top: 60px;
+    padding-left: 50px;
+}
+#error {
+    color: red;
+}
+h1{
+    text-align: center;
+}
+h1 img{
+    width: 400px;
+    height: 150px;
+}
+input {
+    margin-right: 7px;
+}
+.doneimg {
+    height: 50px;
+    width: 50px;
+    transform: rotate(-20deg);
+}
+.undoneimg {
+    color: white;
+    height: 50px;
+    width: 50px;
+    transform: rotate(-20deg);
+}
+.addbtn {
+    color: black;
+    text-decoration: underline;
+}
+.addbtn:hover {
+    background-color: greenyellow;
+    
+}
+a:hover {
+    background-color: greenyellow;
+}
+#sort {
+    font-size: 11px;
+}
