@@ -3,7 +3,7 @@
     src: url(../Futura.ttf);
 }
 body {
-    background-image: url("../bild1.jpg");
+    background-image: url("../images/bild1.jpg");
     font-family: nikeFont, Bolder;
 }
 .main-content {

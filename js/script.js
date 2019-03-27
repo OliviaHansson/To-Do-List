@@ -28,7 +28,7 @@ function createListItems(todo, i) {
     lis.setAttribute("id", "check" + (i));
 
     var img = document.createElement("img");
-    img.setAttribute("src", "done.svg");
+    img.setAttribute("src", "./images/done.svg");
     img.setAttribute("class", "doneimg");
     img.setAttribute("id", (i));
     img.setAttribute("onclick", "checkThingToDo(this)");
