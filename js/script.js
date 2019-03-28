@@ -77,6 +77,7 @@ function checkThingToDo(element) {
         li.classList.remove("done");
         check.classList.remove("hide");
         doIt[listIndex].checked = false;
+        check.checked = false;
     }
     saveToStorage();
 }
