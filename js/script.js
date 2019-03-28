@@ -10,11 +10,11 @@ function thingsToDo() {
     
     document.getElementById("listOfThingsToDo").innerHTML = "";
     for( var i = 0; i < doIt.length; i++) {
-        createListItems(doIt[i], i);
+        createListItem(doIt[i], i);
     }
-    saveToStorage(); 
+    //saveToStorage(); 
 }
-function createListItems(todo, i) {
+function createListItem(todo, i) {
     var ul = document.getElementById("listOfThingsToDo");
     var li = document.createElement("li");
     li.setAttribute("id", "li" + i);
@@ -63,7 +63,11 @@ function saveToStorage() {
 }
 function checkThingToDo(element) {
     listIndex = element.attributes["listIndex"].value;
-    check = document.getElementById("chk" + listIndex);
+    
+    doIt[listIndex].checked = !
+    doIt[listIndex].checked;
+
+    /*check = document.getElementById("chk" + listIndex);
     li = document.getElementById("li" + listIndex);
     img = document.getElementById("img" + listIndex);
 
@@ -78,8 +82,9 @@ function checkThingToDo(element) {
         check.classList.remove("hide");
         doIt[listIndex].checked = false;
         check.checked = false;
-    }
+    }*/
     saveToStorage();
+    thingsToDo();
 }
 
 function addThingToDo() {
