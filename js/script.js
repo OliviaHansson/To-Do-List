@@ -4,69 +4,81 @@ function thingsToDo() {
 
     var getSavedList = localStorage.getItem("saveList");
 
-     if(getSavedList !== undefined && getSavedList !== null) {
+    if(getSavedList !== undefined && getSavedList !== null) {
         doIt = JSON.parse(getSavedList);
     }
     
     document.getElementById("listOfThingsToDo").innerHTML = "";
     for( var i = 0; i < doIt.length; i++) {
-        if(doIt[i].checked == true) {
-            createListItems(doIt[i], i);
-
-            //"<li id='check" + (i) + "'>" + "<img src='done.svg' class='doneimg'id='" + (i) + "' onclick='checkThingToDo(this)' checked>" + doIt[i].todo + "<button id='" + (i) + "' class='btn btn-link' onclick='removeThingToDo(this)'><i class='fas fa-times'></i></button></li>";
-            var li = document.getElementById("check" + i);
-            li.classList.add("done");
-        }else {
-            document.getElementById("listOfThingsToDo").innerHTML += "<li id='check" + (i) + "'>" + "<input type='checkbox' id='" + (i) + "' onclick='checkThingToDo(this)'/>" + doIt[i].todo + "<button id='" + (i) + "' class='btn btn-link' onclick='removeThingToDo(this)'><i class='fas fa-times'></i></button></li>";
-        }
+        createListItems(doIt[i], i);
     }
     saveToStorage(); 
 }
 function createListItems(todo, i) {
     var ul = document.getElementById("listOfThingsToDo");
-    var lis = document.createElement("li");
-    lis.setAttribute("id", "check" + (i));
+    var li = document.createElement("li");
+    li.setAttribute("id", "li" + i);
 
     var img = document.createElement("img");
     img.setAttribute("src", "./images/done.svg");
-    img.setAttribute("class", "doneimg");
-    img.setAttribute("id", (i));
+    img.setAttribute("class", "doneimg");    
+    img.setAttribute("id", "img" + i);
+    img.setAttribute("listIndex", i);
     img.setAttribute("onclick", "checkThingToDo(this)");
-    img.setAttribute("checked", true)
+
+    var check = document.createElement("input");
+    check.setAttribute("type", "checkbox");
+    check.setAttribute("id", "chk" + i);
+    check.setAttribute("listIndex", i);
+    check.setAttribute("onclick", "checkThingToDo(this)");
 
     var btn = document.createElement("button");
-    btn.setAttribute("id", (i));
+    btn.setAttribute("id", "btn" + i);
     btn.setAttribute("class", "btn btn-lin");
+    btn.setAttribute("listIndex", i);
     btn.setAttribute("onclick","removeThingToDo(this)"); 
 
     var icon = document.createElement("i");
     icon.setAttribute("class","fas fa-times");
+    icon.setAttribute("id","hide");
 
-    lis.appendChild(img);
-    lis.appendChild(document.createTextNode(doIt[i].todo));
-    lis.appendChild(icon);
+    if(doIt[i].checked) {
+        check.checked = true;
+        img.checked = true;
+        img.classList.add("doneimgdisplay");
+        li.classList.add("done");
+        check.classList.add("hide");
+    }
+    li.appendChild(check);
+    li.appendChild(img);
+    li.appendChild(document.createTextNode(doIt[i].todo));
+    li.appendChild(icon);
     btn.appendChild(icon);
-    lis.appendChild(btn);
-    ul.appendChild(lis);
-
+    li.appendChild(btn);
+    ul.appendChild(li);
 }
 
 function saveToStorage() {
     localStorage.setItem("saveList", JSON.stringify(doIt));
 }
 function checkThingToDo(element) {
-    var checkbox = document.getElementById(element.id);
-    var li = document.getElementById("check" + element.id);
+    listIndex = element.attributes["listIndex"].value;
+    check = document.getElementById("chk" + listIndex);
+    li = document.getElementById("li" + listIndex);
+    img = document.getElementById("img" + listIndex);
 
-    if (checkbox.checked == true) {
+    if (doIt[listIndex].checked == false) {
+        img.classList.add("doneimgdisplay");
         li.classList.add("done");
-        doIt[element.id].checked = true;
+        check.classList.add("hide");
+        doIt[listIndex].checked = true;
     }else {
+        img.classList.remove("doneimgdisplay");
         li.classList.remove("done");
-        doIt[element.id].checked = false;
+        check.classList.remove("hide");
+        doIt[listIndex].checked = false;
     }
     saveToStorage();
-    thingsToDo();
 }
 
 function addThingToDo() {
@@ -80,9 +92,10 @@ function addThingToDo() {
     addThing.value = "";
     }
 }
-function removeThingToDo(rem) {
 
-    doIt.splice(rem.id,1);
+function removeThingToDo(rem) {
+    listIndex = rem.attributes["listIndex"].value;
+    doIt.splice(listIndex,1);
     saveToStorage();
     thingsToDo();
 }
